@@ -1,0 +1,40 @@
+version: "3.1"
+
+services:
+  client:
+    image: client
+    container_name: client
+    build: ./client
+    restart: unless-stopped
+    environment:
+      - VITE_MAPS_API_KEY=${VITE_MAPS_API_KEY}
+      - VITE_API_URL=${VITE_API_URL}
+    ports:
+      - 5173:5173
+    # volumes:
+    #   - ./:/client
+    # networks:
+    #   - app-network
+    # command: ["npm", "run", "build"]
+
+  server:
+    image: server
+    container_name: server
+    build: ./server
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - GMAPS_API_KEY=${GMAPS_API_KEY}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+    ports:
+      - 3000:3000
+    # volumes:
+    #   - ./:/server
+    # networks:
+    #   - app-network
+    # command: ["npm", "start"]
+# networks:
+#   app-network:
+#     driver: bridge
