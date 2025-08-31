@@ -11,11 +11,11 @@ services:
       - VITE_API_URL=${VITE_API_URL}
     ports:
       - 5173:5173
-    # volumes:
-    #   - ./:/client
-    # networks:
-    #   - app-network
-    # command: ["npm", "run", "build"]
+    volumes:
+      - ./:/client
+    networks:
+      - app-network
+    command: ["npm", "run", "build"]
 
   server:
     image: server
@@ -30,11 +30,11 @@ services:
       - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
     ports:
       - 3000:3000
-    # volumes:
-    #   - ./:/server
-    # networks:
-    #   - app-network
-    # command: ["npm", "start"]
-# networks:
-#   app-network:
-#     driver: bridge
+    volumes:
+      - ./:/server
+    networks:
+      - app-network
+    command: ["npm", "start"]
+networks:
+  app-network:
+    driver: bridge
